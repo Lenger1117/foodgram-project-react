@@ -11,6 +11,7 @@ from .serializers import (CreateRecipeSerializer,
                           IngredientSerializer,
                           TagSerializer, RecipeSerializer)
 
+
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     queryset = Ingredient.objects.all()

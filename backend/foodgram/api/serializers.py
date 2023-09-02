@@ -232,12 +232,10 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             if int(amount) < 1:
                 raise serializers.ValidationError({
                     'amount': 'Для приготовления любого блюда понадобится хотя'
-                    'бы один ингредиент'
-                    })
+                    'бы один ингредиент'})
             if i['id'] in list:
                 raise serializers.ValidationError({
-                    'ingredient': 'Вы уже добавили данный ингредиент'
-                    })
+                    'ingredient': 'Вы уже добавили данный ингредиент'})
             list.append(i['id'])
         return ingredients
 
