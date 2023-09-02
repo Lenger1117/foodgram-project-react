@@ -3,10 +3,9 @@ from rest_framework.fields import SerializerMethodField
 from django.shortcuts import get_object_or_404
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework.exceptions import ValidationError
-from rest_framework.validators import UniqueTogetherValidator
 from rest_framework import serializers, status
 from users.models import CustomUser, Follow
-from recipes.models import (Ingredient, Tag, Favorite, Recipe, IngredientRecipe,
+from recipes.models import (Ingredient, Tag, Recipe, IngredientRecipe,
                             Favorite, ShoppingList, TagRecipe)
 
 
