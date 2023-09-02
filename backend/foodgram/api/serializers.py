@@ -20,7 +20,8 @@ class CustomUserSerializer(UserSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'is_subscribed']
+        fields = ['id', 'first_name', 'last_name',
+                  'username', 'email', 'is_subscribed']
 
     def get_is_subscribed(self, object):
         user = self.context.get('request').user
@@ -80,7 +81,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     def get_ingredients(self, obj):
         ingredients = IngredientRecipe.objects.filter(recipe=obj)
         return IngredientRecipeSerializer(ingredients, many=True).data
-    
+
     def get_is_favorited(self, obj):
         request = self.context.get('request')
         if not request or request.user.is_anonymous:
@@ -98,7 +99,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
         fields = ['user', 'recipe']
-    
+
     def validate(self, data):
         user, recipe = data.get('user'), data.get('recipe')
         if self.Meta.model.objects.filter(user=user, recipe=recipe).exists():
@@ -129,7 +130,7 @@ class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Follow
         fields = ['user', 'author']
-    
+
     def validate(self, data):
         author_id = self.context.get(
             'request').parser_context.get('kwargs').get('id')
@@ -230,12 +231,13 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             amount = i['amount']
             if int(amount) < 1:
                 raise serializers.ValidationError({
-                   'amount': 'Для приготовления любого блюда понадобится хотя бы один ингредиент'
-                })
+                    'amount': 'Для приготовления любого блюда понадобится хотя'
+                    'бы один ингредиент'
+                    })
             if i['id'] in list:
                 raise serializers.ValidationError({
-                   'ingredient': 'Вы уже добавили данный ингредиент'
-                })
+                    'ingredient': 'Вы уже добавили данный ингредиент'
+                    })
             list.append(i['id'])
         return ingredients
 

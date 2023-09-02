@@ -40,8 +40,7 @@ class Follow(models.Model):
     class Meta:
         constraints = [UniqueConstraint
                        (fields=['user', 'author'],
-                        name='user_author_unique')
-                        ]
+                        name='user_author_unique')]
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
 

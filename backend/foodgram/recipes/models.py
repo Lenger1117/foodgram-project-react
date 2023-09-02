@@ -1,7 +1,9 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.db.models import UniqueConstraint
+
 from users.models import CustomUser
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=200,
@@ -9,7 +11,7 @@ class Ingredient(models.Model):
                             db_index=True)
     measurement_unit = models.CharField(max_length=200,
                                         verbose_name='Единицы измерения')
-    
+
     class Meta:
         ordering = ('-name',)
         verbose_name = 'Ингредиент'
@@ -42,15 +44,16 @@ class Tag(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=200,
                             verbose_name='Название рецепта')
-    tags = models.ManyToManyField(Tag, 
+    tags = models.ManyToManyField(Tag,
                                   verbose_name='Теги')
     ingredients = models.ManyToManyField(Ingredient,
                                          verbose_name='Ингридиенты',
                                          through='IngredientRecipe')
-    cooking_time = models.PositiveSmallIntegerField(verbose_name='Время приготовления',
-                                                    validators=[MinValueValidator(
-                                                        1, message='Время приготовления должно быть не менее 1 минуты!')]
-                                                        )
+    cooking_time = models.PositiveSmallIntegerField(
+        verbose_name='Время приготовления',
+        validators=[MinValueValidator(
+            1,
+            message='Время приготовления должно быть не менее 1 минуты!')])
     text = models.TextField(verbose_name='Описание',
                             help_text='Введите пошагавое приготовление блюда')
     image = models.ImageField(upload_to='recipes/image/',
@@ -105,10 +108,10 @@ class ShoppingList(models.Model):
     class Meta:
         constraints = [UniqueConstraint
                        (fields=['user', 'recipe'],
-                        name='user_shoppinglist_unique')
-                        ]
+                        name='user_shoppinglist_unique')]
         verbose_name = 'Список покупок'
         verbose_name_plural = 'Список покупок'
+
 
 class IngredientRecipe(models.Model):
     recipe = models.ForeignKey(Recipe,
@@ -123,8 +126,7 @@ class IngredientRecipe(models.Model):
     class Meta:
         constraints = [UniqueConstraint
                        (fields=['recipe', 'ingredient'],
-                        name='ingredient_recipe_unique')
-                        ]
+                        name='ingredient_recipe_unique')]
 
 
 class TagRecipe(models.Model):
@@ -138,5 +140,4 @@ class TagRecipe(models.Model):
     class Meta:
         constraints = [UniqueConstraint
                        (fields=['recipe', 'tag'],
-                        name='recipe_tag_unique')
-                        ]
+                        name='recipe_tag_unique')]

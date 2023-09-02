@@ -1,8 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from rest_framework.decorators import action
-from rest_framework.permissions import (IsAuthenticated,
-                                        IsAuthenticatedOrReadOnly)
+from rest_framework.permissions import (IsAuthenticatedOrReadOnly)
 
 from recipes.models import (Ingredient, Recipe, Tag)
 
@@ -12,7 +10,6 @@ from .permissions import AuthorOrReadOnly
 from .serializers import (CreateRecipeSerializer,
                           IngredientSerializer,
                           TagSerializer, RecipeSerializer)
-
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
