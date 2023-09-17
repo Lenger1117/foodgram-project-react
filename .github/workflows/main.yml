@@ -57,11 +57,9 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd foodgram
+            sudo docker-compose down
             sudo docker pull lenger1117/backend
             sudo docker pull lenger1117/frontend
-            sudo docker-compose stop
-            sudo docker-compose rm backend
-            sudo docker-compose rm frontend
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env

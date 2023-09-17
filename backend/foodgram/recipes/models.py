@@ -21,6 +21,25 @@ class Ingredient(models.Model):
         return f'{self.name} - {self.measurement_unit}'
 
 
+class IngredientAmount(models.Model):
+    ingredient = models.ForeignKey(
+        Ingredient,
+        on_delete=models.CASCADE,
+        verbose_name="Ингредиент",
+    )
+    amount = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)],
+        verbose_name="Количество"
+    )
+
+    class Meta:
+        verbose_name = "Количество ингредиента"
+        verbose_name_plural = "Количество ингредиентов"
+
+    def __str__(self):
+        return f"{self.ingredient} - {self.amount}"
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=200,
                             verbose_name='Название тега',
@@ -99,11 +118,11 @@ class ShoppingList(models.Model):
     user = models.ForeignKey(CustomUser,
                              on_delete=models.CASCADE,
                              verbose_name='Пользователь',
-                             related_name='shopping_list',)
+                             related_name='shopping_cart',)
     recipe = models.ForeignKey(Recipe,
                                on_delete=models.CASCADE,
                                verbose_name='Рецепт',
-                               related_name='shopping_list',)
+                               related_name='shopping_cart',)
 
     class Meta:
         constraints = [UniqueConstraint
