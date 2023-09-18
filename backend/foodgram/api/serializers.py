@@ -196,14 +196,6 @@ class FavoriteSerializer(serializers.ModelSerializer):
         model = Favorite
         fields = ['user', 'recipe']
 
-    def validate(self, data):
-        user, recipe = data.get('user'), data.get('recipe')
-        if self.Meta.model.objects.filter(user=user, recipe=recipe).exists():
-            raise ValidationError(
-                detail='Этот рецепт уже добавлен в избранное',
-            )
-        return data
-
     def to_representation(self, instance):
         return ShowFavoriteSerializer(instance.recipe, context={
             'request': self.context.get('request')

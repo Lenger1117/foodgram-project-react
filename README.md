@@ -37,4 +37,4 @@
 <li>Наполните базу данных ингредиентами и тегами: sudo&nbsp;docker-compose exec backend python manage.py load_data<br /><code></code><br /><code></code><br /><code></code></li>
 </ol>
 <p>&nbsp;</p>
-<p><code></code></p>
+<p><code></code></p> d
