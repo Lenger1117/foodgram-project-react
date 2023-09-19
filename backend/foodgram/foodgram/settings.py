@@ -11,7 +11,7 @@ SECRET_KEY = '1564135165'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['158.160.15.64', '127.0.0.1', 'localhost', 'foodgramlenger1117.myftp.org']
+ALLOWED_HOSTS = ['158.160.15.64', '127.0.0.1', 'localhost', 'lenger1117.ddns.net']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

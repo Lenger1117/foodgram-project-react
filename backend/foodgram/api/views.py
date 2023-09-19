@@ -156,7 +156,7 @@ class FavoriteView(APIView):
     permission_classes = [IsAuthenticated, ]
     pagination_class = Pagination
 
-    def add(self, request, id):
+    def post(self, request, id):
         data = {
             'user': request.user.id,
             'recipe': id
