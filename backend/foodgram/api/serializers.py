@@ -212,7 +212,7 @@ class FollowSerializer(UserSerializer):
 
     class Meta(UserSerializer.Meta):
         fields = fields = UserSerializer.Meta.fields + \
-                        ('recipes_count', 'recipes')
+            ('recipes_count', 'recipes')
         read_only_fields = ['email', 'username', 'first_name', 'last_name']
 
     def validate(self, data):
