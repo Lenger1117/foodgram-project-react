@@ -138,12 +138,10 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             amount = i['amount']
             if int(amount) < 1:
                 raise serializers.ValidationError({
-                   'amount': 'Нужно добавить ингредиенты'
-                })
+                   'amount': 'Нужно добавить ингредиенты'})
             if i['id'] in list:
                 raise serializers.ValidationError({
-                   'ingredient': 'Не должно быть повторяющихся ингредиентов'
-                })
+                   'ingredient': 'Не должно быть повторяющихся ингредиентов'})
             list.append(i['id'])
         return data
 
@@ -211,7 +209,8 @@ class FollowSerializer(UserSerializer):
     recipes = SerializerMethodField()
 
     class Meta(UserSerializer.Meta):
-        fields = fields = UserSerializer.Meta.fields + ('recipes_count', 'recipes')
+        fields = fields = UserSerializer.Meta.fields + \
+        ('recipes_count', 'recipes')
         read_only_fields = ['email', 'username', 'first_name', 'last_name']
 
     def validate(self, data):
