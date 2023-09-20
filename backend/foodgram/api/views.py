@@ -1,24 +1,25 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
+                                        IsAuthenticated)
 from django.http.response import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from djoser.views import UserViewSet
-from rest_framework.decorators import api_view
 from django.db.models import Sum
-
-from recipes.models import Ingredient, Recipe, Tag, ShoppingList, Favorite, IngredientRecipe
-
+from recipes.models import (Ingredient, Recipe, Tag,
+                            ShoppingList, Favorite, IngredientRecipe)
 from .filters import IngredientFilter, RecipeFilter
 from .pagination import Pagination
 from .permissions import AuthorOrReadOnly
 from .serializers import (CreateRecipeSerializer,
                           IngredientSerializer,
-                          TagSerializer, ReadRecipeSerializer, CustomUserSerializer,
-                          ShoppingListSerializer, FavoriteSerializer, FollowSerializer)
+                          TagSerializer, ReadRecipeSerializer,
+                          CustomUserSerializer,
+                          ShoppingListSerializer, FavoriteSerializer,
+                          FollowSerializer)
 from users.models import CustomUser, Follow
 
 
@@ -54,7 +55,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context.update({'request': self.request})
         return context
-    
+
     @action(detail=False, methods=['GET'],
             permission_classes=[IsAuthenticated],
             url_path='download_shopping_cart',)
@@ -78,7 +79,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
         )
         response['Content-Disposition'] = f'attachment; filename="{file}.txt"'
         return response
-
 
 
 class ShoppingListView(APIView):
