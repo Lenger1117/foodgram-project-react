@@ -139,11 +139,11 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             if int(amount) < 1:
                 raise serializers.ValidationError({
                     'amount': 'Нужно добавить ингредиенты'
-                    })
+                })
             if i['id'] in list:
                 raise serializers.ValidationError({
                     'ingredient': 'Не должно быть повторяющихся ингредиентов'
-                    })
+                })
             list.append(i['id'])
         return data
 
