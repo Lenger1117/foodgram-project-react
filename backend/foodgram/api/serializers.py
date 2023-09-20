@@ -5,7 +5,7 @@ from drf_extra_fields.fields import Base64ImageField
 from rest_framework.exceptions import ValidationError
 from rest_framework import serializers, status
 from users.models import CustomUser, Follow
-from recipes.models import (Ingredient, Tag, Recipe, IngredientRecipe,
+from recipes.models import (Ingredient, Tag, IngredientRecipe, Recipe,
                             Favorite, ShoppingList, TagRecipe)
 
 
