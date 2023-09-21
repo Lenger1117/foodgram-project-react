@@ -147,6 +147,10 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             list.append(i['id'])
         return data
 
+    def create_tags(self, tags, recipe):
+        for tag in tags:
+            TagRecipe.objects.create(recipe=recipe, tag=tag)
+
     def create_ingredients(self, ingredients, recipe):
         for i in ingredients:
             ingredient = Ingredient.objects.get(id=i['id'])
