@@ -42,7 +42,7 @@ jobs:
         with:
           push: true
           context: ./backend/foodgram/
-          tags: lenger1117/backend:latest
+          tags: lenger1117/foodgram_backend:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,8 +58,8 @@ jobs:
           script: |
             cd foodgram
             sudo docker-compose down
-            sudo docker pull lenger1117/backend
-            sudo docker pull lenger1117/frontend
+            sudo docker pull lenger1117/foodgram_backend
+            sudo docker pull lenger1117/foodgram_frontend
             sudo docker-compose up -d 
             sudo docker-compose exec -T backend python manage.py migrate
             sudo docker-compose exec -T backend python manage.py collectstatic --no-input
