@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Recipe, Ingredient, Tag, Favorite, ShoppingList
+from .models import Recipe, Ingredient, Tag, Favorite, ShoppingCart
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -42,7 +42,7 @@ class FavoriteAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-class ShoppingListAdmin(admin.ModelAdmin):
+class ShoppingCartAdmin(admin.ModelAdmin):
     list_display = ('recipe', 'user')
     search_fields = ('user', )
     list_filter = ('recipe', 'user')
@@ -53,4 +53,4 @@ admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
-admin.site.register(ShoppingList, ShoppingListAdmin)
+admin.site.register(ShoppingCart, ShoppingCartAdmin)

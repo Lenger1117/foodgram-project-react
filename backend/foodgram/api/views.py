@@ -10,7 +10,7 @@ from rest_framework.decorators import action
 from djoser.views import UserViewSet
 from django.db.models import Sum
 from recipes.models import (Ingredient, Recipe, Tag,
-                            ShoppingList, Favorite, IngredientRecipe)
+                            ShoppingCart, Favorite, IngredientRecipe)
 from .filters import IngredientFilter, RecipeFilter
 from .pagination import Pagination
 from .permissions import AuthorOrReadOnly
@@ -18,7 +18,7 @@ from .serializers import (CreateRecipeSerializer,
                           IngredientSerializer,
                           TagSerializer, ReadRecipeSerializer,
                           CustomUserSerializer,
-                          ShoppingListSerializer, FavoriteSerializer,
+                          ShoppingCartSerializer, FavoriteSerializer,
                           FollowSerializer)
 from users.models import CustomUser, Follow
 
@@ -81,7 +81,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return response
 
 
-class ShoppingListView(APIView):
+class ShoppingCartView(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def post(self, request, id):
@@ -90,9 +90,9 @@ class ShoppingListView(APIView):
             'recipe': id
         }
         recipe = get_object_or_404(Recipe, id=id)
-        if not ShoppingList.objects.filter(
+        if not ShoppingCart.objects.filter(
            user=request.user, recipe=recipe).exists():
-            serializer = ShoppingListSerializer(
+            serializer = ShoppingCartSerializer(
                 data=data, context={'request': request}
             )
             if serializer.is_valid():
@@ -103,9 +103,9 @@ class ShoppingListView(APIView):
 
     def delete(self, request, id):
         recipe = get_object_or_404(Recipe, id=id)
-        if ShoppingList.objects.filter(
+        if ShoppingCart.objects.filter(
            user=request.user, recipe=recipe).exists():
-            ShoppingList.objects.filter(
+            ShoppingCart.objects.filter(
                 user=request.user, recipe=recipe
             ).delete()
             return Response(status=status.HTTP_204_NO_CONTENT)

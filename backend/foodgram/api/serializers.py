@@ -6,7 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework import serializers, status
 from users.models import CustomUser, Follow
 from recipes.models import (Ingredient, Tag, IngredientRecipe, Recipe,
-                            Favorite, ShoppingList, TagRecipe)
+                            Favorite, ShoppingCart, TagRecipe)
 
 
 class CreateCustomUserSerializer(UserCreateSerializer):
@@ -204,9 +204,9 @@ class FavoriteSerializer(serializers.ModelSerializer):
         }).data
 
 
-class ShoppingListSerializer(FavoriteSerializer):
+class ShoppingCartSerializer(FavoriteSerializer):
     class Meta(FavoriteSerializer.Meta):
-        model = ShoppingList
+        model = ShoppingCart
 
 
 class FollowSerializer(UserSerializer):
