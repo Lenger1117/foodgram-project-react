@@ -145,7 +145,7 @@ class IngredientRecipe(models.Model):
     class Meta:
         constraints = [UniqueConstraint
                        (fields=['recipe', 'ingredient'],
-                        name='ingredient_recipe_unique')]
+                        name='recipe_ingredient_unique')]
 
 
 class TagRecipe(models.Model):
