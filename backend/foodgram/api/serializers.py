@@ -43,7 +43,9 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class IngredientRecipeSerializer(serializers.ModelSerializer):
-    id = serializers.ReadOnlyField(source='ingredient.id')
+    id = serializers.PrimaryKeyRelatedField(
+        queryset=Ingredient.objects.all()
+    )
     name = serializers.ReadOnlyField(source='ingredient.name')
     measurement_unit = serializers.ReadOnlyField(
         source='ingredient.measurement_unit'
@@ -165,12 +167,12 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
         IngredientRecipe.objects.bulk_create(ingredient_list)
 
     def create(self, validated_data):
-        request = self.context.get('request', None)
-        tags = validated_data.pop('tags')
         ingredients = validated_data.pop('ingredients')
-        recipe = Recipe.objects.create(author=request.user, **validated_data)
-        recipe.tags.set(tags)
+        tags = validated_data.pop('tags')
+        author = self.context.get('request').user
+        recipe = Recipe.objects.create(author=author, **validated_data)
         self.create_ingredients(recipe, ingredients)
+        recipe.tags.set(tags)
         return recipe
 
     def update(self, instance, validated_data):
