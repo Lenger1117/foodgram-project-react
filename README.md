@@ -42,5 +42,4 @@ sudo apt install docker-compose</code></li>
 <li><em><strong>Создайте суперюзера: </strong></em><code>sudo docker-compose exec backend python manage.py createsuperuser</code></li>
 <li><em><strong>Наполните базу данных ингредиентами и тегами: </strong></em>sudo&nbsp;docker-compose exec backend python manage.py load_data<code></code><code></code><code></code></li>
 </ol>
-<p>&nbsp;</p>
 <p><code></code></p>
