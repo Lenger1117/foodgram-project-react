@@ -4,13 +4,23 @@ from django.db.models import UniqueConstraint
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(max_length=254,
-                              verbose_name='Почта', unique=True)
-    first_name = models.CharField(max_length=150,
-                                  verbose_name='Имя', blank=False)
-    last_name = models.CharField(max_length=150,
-                                 verbose_name='Фамилия', blank=False)
+    email = models.EmailField(
+        max_length=254,
+        verbose_name='Почта',
+        unique=True
+        )
+    first_name = models.CharField(
+        max_length=150,
+        verbose_name='Имя',
+        blank=False
+        )
+    last_name = models.CharField(
+        max_length=150,
+        verbose_name='Фамилия',
+        blank=False
+        )
     username = models.CharField(max_length=150, verbose_name='Логин')
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
