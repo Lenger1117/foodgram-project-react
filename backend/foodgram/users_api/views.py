@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from users.models import CustomUser, Follow
 from api.pagination import Pagination
-from .serializers import CustomUserSerializer, FollowSerializer
+from .serializers import CustomUserSerializer
 
 
 class UserViewSet(UserViewSet):
