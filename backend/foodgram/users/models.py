@@ -20,7 +20,7 @@ class CustomUser(AbstractUser):
         blank=False
         )
     username = models.CharField(max_length=150, verbose_name='Логин')
-    
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
