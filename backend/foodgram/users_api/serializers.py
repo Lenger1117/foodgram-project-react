@@ -1,10 +1,6 @@
-from django.shortcuts import get_object_or_404
-from rest_framework.exceptions import ValidationError
-from rest_framework import status
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework.fields import SerializerMethodField
 from users.models import CustomUser, Follow
-from api.serializers import ShowFavoriteSerializer
 
 
 class CreateCustomUserSerializer(UserCreateSerializer):

@@ -1,4 +1,7 @@
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import ValidationError
+from rest_framework import status
+from rest_framework.fields import SerializerMethodField
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from recipes.models import (Ingredient,
@@ -9,6 +12,8 @@ from recipes.models import (Ingredient,
                             ShoppingCart,
                             TagRecipe)
 from users_api.serializers import CustomUserSerializer
+from users.models import CustomUser
+from users_api.serializers import UserSerializer
 
 
 class IngredientSerializer(serializers.ModelSerializer):
