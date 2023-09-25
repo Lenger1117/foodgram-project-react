@@ -7,20 +7,22 @@ from django.http.response import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
-from djoser.views import UserViewSet
 from django.db.models import Sum
-from recipes.models import (Ingredient, Recipe, Tag,
-                            ShoppingCart, Favorite, IngredientRecipe)
+from recipes.models import (Ingredient,
+                            Recipe,
+                            Tag,
+                            ShoppingCart,
+                            Favorite,
+                            IngredientRecipe)
 from .filters import IngredientFilter, RecipeFilter
 from .pagination import Pagination
 from .permissions import AuthorOrReadOnly
 from .serializers import (CreateRecipeSerializer,
                           IngredientSerializer,
-                          TagSerializer, ReadRecipeSerializer,
-                          CustomUserSerializer,
-                          ShoppingCartSerializer, FavoriteSerializer,
-                          FollowSerializer)
-from users.models import CustomUser, Follow
+                          TagSerializer,
+                          ReadRecipeSerializer,
+                          ShoppingCartSerializer,
+                          FavoriteSerializer)
 
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
@@ -75,9 +77,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 ingredient_list += ', '
         file = 'shopping_list'
         response = HttpResponse(
-            ingredient_list, 'Content-Type: application/txt'
+            ingredient_list, 'Content-Type: application/pdf'
         )
-        response['Content-Disposition'] = f'attachment; filename="{file}.txt"'
+        response['Content-Disposition'] = f'attachment; filename="{file}.pdf"'
         return response
 
 
@@ -110,46 +112,6 @@ class ShoppingCartView(APIView):
             ).delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-class UserViewSet(UserViewSet):
-    queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSerializer
-    pagination_class = Pagination
-
-    @action(
-        detail=True,
-        methods=['post', 'delete'],
-        permission_classes=[IsAuthenticated],
-    )
-    def subscribe(self, request, id):
-        user = request.user
-        author = get_object_or_404(CustomUser, pk=id)
-
-        if request.method == 'POST':
-            serializer = FollowSerializer(
-                author, data=request.data, context={'request': request}
-            )
-            serializer.is_valid(raise_exception=True)
-            Follow.objects.create(user=user, author=author)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        if request.method == 'DELETE':
-            get_object_or_404(
-                Follow, user=user, author=author
-            ).delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-
-    @action(detail=False, permission_classes=[IsAuthenticated],
-            url_path='subscriptions',)
-    def subscriptions(self, request):
-        user = request.user
-        queryset = CustomUser.objects.filter(author__user=user)
-        pages = self.paginate_queryset(queryset)
-        serializer = FollowSerializer(
-            pages, many=True, context={'request': request}
-        )
-        return self.get_paginated_response(serializer.data)
 
 
 class FavoriteView(APIView):
