@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 from users.models import CustomUser, Follow
 from api.pagination import Pagination
 from .serializers import CustomUserSerializer
+from api.serializers import FollowSerializer
 
 
 class UserViewSet(UserViewSet):
