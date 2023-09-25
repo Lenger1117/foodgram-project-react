@@ -65,4 +65,3 @@ class FollowSerializer(UserSerializer):
             recipes = recipes[: int(limit)]
         serializer = ShowFavoriteSerializer(recipes, many=True, read_only=True)
         return serializer.data
-

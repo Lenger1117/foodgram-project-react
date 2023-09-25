@@ -4,7 +4,8 @@ from rest_framework import serializers
 from recipes.models import (Ingredient,
                             Tag,
                             IngredientRecipe,
-                            Recipe,Favorite,
+                            Recipe,
+                            Favorite,
                             ShoppingCart,
                             TagRecipe)
 from users_api.serializers import CustomUserSerializer
