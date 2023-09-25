@@ -16,25 +16,30 @@
 <p><code></code></p>
 <hr />
 <p><code></code></p>
+<h2 dir="auto" tabindex="-1">Данные для проверки работы приложения (суперюзер):</h2>
+<pre class="notranslate"><code>email: admin@admin.ru
+password: 89tofomo</code></pre>
+<hr />
+<pre class="notranslate"><code></code></pre>
 <h2 dir="auto" tabindex="-1">Инструкции по установке локально:</h2>
 <ol>
-<li>Клонируйте проект: <code><code>git clone&nbsp;</code></code><code>https://github.com/Lenger1117/foodgram-project-react.git</code></li>
-<li><em><strong>Установите и активируйте виртуальное окружение:</strong></em></li>
-<li><em><strong>Установите зависимости из файла requirements.txt:</strong></em></li>
-<li><em><em><strong>В папке с файлом manage.py примените миграции:&nbsp;</strong></em></em><code>python manage.py migrate</code></li>
-<li><em><em><strong>В папке с файлом manage.py выполните команду для запуска локально:&nbsp;</strong></em></em><code></code><code>python manage.py runserver</code></li>
-<li><em><em><strong>Локально документацию можно посмотреть по адресу:&nbsp;</strong></em></em><code></code><code>http://127.0.0.1/api/docs/</code></li>
+<li><em><strong>Клонируйте проект: </strong></em><code><code>git clone&nbsp;</code></code><code>https://github.com/Lenger1117/foodgram-project-react.git</code><strong><code></code></strong><em><strong><code></code></strong></em></li>
+<li><em><em><strong>Установите и активируйте виртуальное окружение:&nbsp;</strong></em></em><code>python3 -m venv venv (или&nbsp;</code><code>python -m venv venv)&nbsp;/&nbsp;</code><code>source venv/bin/activate (или&nbsp;</code><code>source venv/Scripts/activate)</code><code></code><code></code><code></code></li>
+<li><em><em><strong>Установите зависимости из файла requirements.txt:&nbsp;</strong></em></em><code>pip install -r requirements.txt</code></li>
+<li><em><strong>В папке с файлом manage.py примените миграции:&nbsp;</strong></em><code>python manage.py migrate</code></li>
+<li><em><strong>В папке с файлом manage.py выполните команду для запуска локально:&nbsp;</strong></em><code>python manage.py runserver</code></li>
+<li><em><strong>Локально документацию можно посмотреть по адресу:&nbsp;</strong></em><code>http://127.0.0.1/api/docs/</code></li>
 </ol>
 <hr />
 <h2 dir="auto" tabindex="-1">Инструкции по установке на удаленном сервере:</h2>
 <ol>
-<li>Скопируйте на сервер необходимые файлы:</li>
-<li>Установите docker и docker-compose:</li>
-<li>Соберите контейнер: <code>sudo docker-compose up -d --build</code></li>
-<li>Выполните миграции: <code>sudo docker-compose exec backend python manage.py migrate</code></li>
-<li>Соберите статику: <code>sudo docker-compose exec backend python manage.py collectstatic --no-input</code></li>
-<li>Создайте суперюзера: <code>sudo docker-compose exec backend python manage.py createsuperuser</code></li>
-<li>Наполните базу данных ингредиентами и тегами: sudo&nbsp;docker-compose exec backend python manage.py load_data<br /><code></code><br /><code></code><br /><code></code></li>
+<li><em><strong>Скопируйте на сервер необходимые файлы:</strong></em></li>
+<li><em><strong>Установите docker и docker-compose:&nbsp;</strong></em><code>sudo apt install docker.io 
+sudo apt install docker-compose</code></li>
+<li><em><strong>Соберите контейнер: </strong></em><code>sudo docker-compose up -d --build</code></li>
+<li><em><strong>Выполните миграции: </strong></em><code>sudo docker-compose exec backend python manage.py migrate</code></li>
+<li><em><strong>Соберите статику: </strong></em><code>sudo docker-compose exec backend python manage.py collectstatic --no-input</code></li>
+<li><em><strong>Создайте суперюзера: </strong></em><code>sudo docker-compose exec backend python manage.py createsuperuser</code></li>
+<li><em><strong>Наполните базу данных ингредиентами и тегами: </strong></em>sudo&nbsp;docker-compose exec backend python manage.py load_data<code></code><code></code><code></code></li>
 </ol>
-<p>&nbsp;</p>
-<p><code></code></p> d
+<p><code></code></p>
