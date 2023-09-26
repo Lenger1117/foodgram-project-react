@@ -24,30 +24,30 @@ http://158.160.15.64/api/docs/
 ```
 
 ## Инструкции по установке локально:
-# 1. Клонируйте проект:
+### 1. Клонируйте проект:
 ```
 git clone https://github.com/Lenger1117/foodgram-project-react.git
 ```
-# 2. Установите и активируйте виртуальное окружение:
+### 2. Установите и активируйте виртуальное окружение:
 ```
 python3 -m venv venv или python -m venv venv
 ```
 ```
 source venv/bin/activate или source venv/Scripts/activate
 ```
-# 3. Установите зависимости из файла requirements.txt:
+### 3. Установите зависимости из файла requirements.txt:
 ```
 pip install -r requirements.txt
 ```
-# 4. В папке с файлом manage.py примените миграции:
+### 4. В папке с файлом manage.py примените миграции:
 ```
 python manage.py migrate
 ```
-# 5. В папке с файлом manage.py выполните команду для запуска локально:
+### 5. В папке с файлом manage.py выполните команду для запуска локально:
 ```
 python manage.py runserver
 ```
-# 6. Локально документацию можно посмотреть по адресу:
+### 6. Локально документацию можно посмотреть по адресу:
 ```
 http://127.0.0.1/api/docs/
 ```
