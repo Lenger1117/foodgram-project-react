@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import ValidationError
 from rest_framework import status
+from django.db.transaction import atomic
 from rest_framework.fields import SerializerMethodField
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
@@ -154,6 +155,7 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             )
         IngredientRecipe.objects.bulk_create(ingredient_list)
 
+    @atomic
     def create(self, validated_data):
         ingredients = validated_data.pop('ingredients')
         tags = validated_data.pop('tags')
@@ -163,6 +165,7 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
         recipe.tags.set(tags)
         return recipe
 
+    @atomic
     def update(self, instance, validated_data):
         instance.tags.clear()
         IngredientRecipe.objects.filter(recipe=instance).delete()

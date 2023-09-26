@@ -97,10 +97,7 @@ class ShoppingCartView(APIView):
             serializer = ShoppingCartSerializer(
                 data=data, context={'request': request}
             )
-            if serializer.is_valid():
-                serializer.save()
-                return Response(
-                    serializer.data, status=status.HTTP_201_CREATED)
+            serializer.is_valid(raise_exception=True)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id):
