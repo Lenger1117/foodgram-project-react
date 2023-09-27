@@ -19,9 +19,6 @@ http://158.160.15.64/
 ```
 http://158.160.15.64:8000/admin/
 ```
-```
-http://158.160.15.64/api/docs/
-```
 
 # Данные для проверки работы приложения (суперюзер):
 ```
@@ -101,7 +98,31 @@ sudo docker-compose exec backend python manage.py collectstatic --no-input
 ```
 sudo docker-compose exec backend python manage.py load_data
 ```
-### 7. Создайте суперюзера (в папке /infra):
+
+# Примеры запросов API
+### Регистрация пользователя:
 ```
-sudo docker-compose exec backend python manage.py createsuperuser
+POST https://lenger1117.ddns.net/api/users/
 ```
+```
+Запрос:
+
+{
+  "email": "vpupkin@yandex.ru",
+  "username": "vasya.pupkin",
+  "first_name": "Вася",
+  "last_name": "Пупкин",
+  "password": "89tofomo"
+}
+```
+```
+Ответ (201Created):
+
+{
+    "first_name": "Вася",
+    "last_name": "Пупкин",
+    "username": "vasya.pupkin",
+    "email": "vpupkin@yandex.ru"
+}
+```
+
