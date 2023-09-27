@@ -1,3 +1,5 @@
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics, ttfonts
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
 from django.shortcuts import get_object_or_404
@@ -62,24 +64,35 @@ class RecipeViewSet(viewsets.ModelViewSet):
             permission_classes=[IsAuthenticated],
             url_path='download_shopping_cart',)
     def download_shopping_cart(self, request):
-        ingredient_list = 'Cписок покупок:'
-        ingredients = IngredientRecipe.objects.filter(
-            recipe__shopping_cart__user=request.user
-        ).values(
-            'ingredient__name', 'ingredient__measurement_unit'
-        ).annotate(amount_sum=Sum('amount'))
-        for num, i in enumerate(ingredients):
-            ingredient_list += (
-                f"\n{i['ingredient__name']} - "
-                f"{i['amount_sum']} {i['ingredient__measurement_unit']}"
-            )
-            if num < ingredients.count() - 1:
-                ingredient_list += ', '
-        file = 'shopping_list'
-        response = HttpResponse(
-            ingredient_list, 'Content-Type: application/pdf'
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = (
+            "attachment; filename='shopping_cart.pdf'"
         )
-        response['Content-Disposition'] = f'attachment; filename="{file}.pdf"'
+        p = canvas.Canvas(response)
+        arial = ttfonts.TTFont('Arial', 'data/arial.ttf')
+        pdfmetrics.registerFont(arial)
+        p.setFont('Arial', 14)
+
+        ingredients = IngredientRecipe.objects.filter(
+            recipe__shopping_cart__user=request.user).values_list(
+            'ingredient__name', 'amount', 'ingredient__measurement_unit')
+
+        ingr_list = {}
+        for name, amount, unit in ingredients:
+            if name not in ingr_list:
+                ingr_list[name] = {'amount': amount, 'unit': unit}
+            else:
+                ingr_list[name]['amount'] += amount
+        height = 700
+
+        p.drawString(100, 750, 'Список покупок')
+        for i, (name, data) in enumerate(ingr_list.items(), start=1):
+            p.drawString(
+                80, height,
+                f"{i}. {name} – {data['amount']} {data['unit']}")
+            height -= 25
+        p.showPage()
+        p.save()
         return response
 
 
