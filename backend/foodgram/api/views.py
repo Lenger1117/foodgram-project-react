@@ -68,7 +68,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
             "attachment; filename='shopping_cart.pdf'"
         )
         p = canvas.Canvas(response)
-        comfortaa_bold = ttfonts.TTFont('Comfortaa-Bold', 'data/Comfortaa-Bold.ttf')
+        comfortaa_bold = ttfonts.TTFont('Comfortaa-Bold',
+                                        'data/Comfortaa-Bold.ttf')
         pdfmetrics.registerFont(comfortaa_bold)
         p.setFont('Comfortaa-Bold', 14)
 
