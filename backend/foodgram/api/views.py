@@ -9,7 +9,6 @@ from django.http.response import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
-from django.db.models import Sum
 from recipes.models import (Ingredient,
                             Recipe,
                             Tag,
