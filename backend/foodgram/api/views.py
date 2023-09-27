@@ -68,27 +68,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
             "attachment; filename='shopping_cart.pdf'"
         )
         p = canvas.Canvas(response)
-        arial = ttfonts.TTFont('Arial', 'data/arial.ttf')
+        arial = ttfonts.TTFont('Skranji-Regular', 'data/Skranji-Regular.ttf')
         pdfmetrics.registerFont(arial)
-        p.setFont('Arial', 14)
+        p.setFont('Skranji-Regular', 14)
 
         ingredients = IngredientRecipe.objects.filter(
             recipe__shopping_cart__user=request.user).values_list(
             'ingredient__name', 'amount', 'ingredient__measurement_unit')
 
-        ingr_list = {}
+        ingredient_list = {}
         for name, amount, unit in ingredients:
-            if name not in ingr_list:
-                ingr_list[name] = {'amount': amount, 'unit': unit}
+            if name not in ingredient_list:
+                ingredient_list[name] = {'amount': amount, 'unit': unit}
             else:
-                ingr_list[name]['amount'] += amount
+                ingredient_list[name]['amount'] += amount
         height = 700
 
         p.drawString(100, 750, 'Список покупок')
-        for i, (name, data) in enumerate(ingr_list.items(), start=1):
+        for ingredient, (name, data) in enumerate(ingredient_list.items(), start=1):
             p.drawString(
                 80, height,
-                f"{i}. {name} – {data['amount']} {data['unit']}")
+                f"{ingredient}. {name} – {data['amount']} {data['unit']}")
             height -= 25
         p.showPage()
         p.save()
