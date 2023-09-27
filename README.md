@@ -11,10 +11,13 @@
 https://lenger1117.ddns.net/
 ```
 ```
+https://lenger1117.ddns.net/admin/
+```
+```
 http://158.160.15.64/
 ```
 ```
-http://158.160.15.64/admin/
+http://158.160.15.64:8000/admin/
 ```
 ```
 http://158.160.15.64/api/docs/
