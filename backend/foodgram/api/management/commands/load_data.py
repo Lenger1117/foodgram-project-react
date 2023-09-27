@@ -5,6 +5,9 @@ from recipes.models import Ingredient, Tag
 
 class Command(BaseCommand):
 
+    def add_arguments(self, parser):
+        parser.add_argument("--path", type=str)
+
     def handle(self, *args, **options):
         try:
             with open('data/ingredients.json', encoding='utf-8',
