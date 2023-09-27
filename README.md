@@ -19,9 +19,6 @@ http://158.160.15.64/
 ```
 http://158.160.15.64:8000/admin/
 ```
-```
-http://158.160.15.64/api/docs/
-```
 
 # Данные для проверки работы приложения (суперюзер):
 ```
@@ -101,7 +98,114 @@ sudo docker-compose exec backend python manage.py collectstatic --no-input
 ```
 sudo docker-compose exec backend python manage.py load_data
 ```
-### 7. Создайте суперюзера (в папке /infra):
+
+# Примеры запросов API
+### Регистрация пользователя:
 ```
-sudo docker-compose exec backend python manage.py createsuperuser
+POST https://lenger1117.ddns.net/api/users/
 ```
+```
+Запрос:
+
+{
+  "email": "vpupkin@yandex.ru",
+  "username": "vasya.pupkin",
+  "first_name": "Вася",
+  "last_name": "Пупкин",
+  "password": "89tofomo"
+}
+```
+```
+Ответ (201 Created):
+
+{
+    "first_name": "Вася",
+    "last_name": "Пупкин",
+    "username": "vasya.pupkin",
+    "email": "vpupkin@yandex.ru"
+}
+```
+
+### Создание рецепта:
+```
+POST https://lenger1117.ddns.net/api/recipes/
+```
+```
+Запрос:
+
+{
+  "ingredients": [
+    {
+      "id": 1123,
+      "amount": 10
+    }
+  ],
+  "tags": [
+    1,
+    2
+  ],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+  "name": "string",
+  "text": "string",
+  "cooking_time": 1
+}
+```
+```
+Ответ (201 Created):
+
+{
+    "id": 1,
+    "tags": [
+        {
+            "id": 2,
+            "name": "Обед",
+            "color": "#68F78C",
+            "slug": "lunch"
+        },
+        {
+            "id": 1,
+            "name": "Завтрак",
+            "color": "#68E4F7",
+            "slug": "breakfast"
+        }
+    ],
+    "author": {
+        "id": 1,
+        "first_name": "Вася",
+        "last_name": "Пупкин",
+        "username": "vasya.pupkin",
+        "email": "vpupkin@yandex.ru",
+        "is_subscribed": false
+    },
+    "ingredients": [
+        {
+            "id": 1123,
+            "name": "овощи",
+            "measurement_unit": "г",
+            "amount": 10
+        }
+    ],
+    "is_favorited": false,
+    "is_in_shopping_cart": false,
+    "name": "string",
+    "image": "http://lenger1117.ddns.net/media/recipes/image/fc0e581a-51b7-440e-a478-fbaf0e023477.png",
+    "text": "string",
+    "cooking_time": 1
+}
+```
+
+### Добавить рецепт в избранное:
+```
+POST https://lenger1117.ddns.net/api/recipes/1/favorite/
+```
+```
+Ответ (201 Created):
+
+{
+    "id": 1,
+    "name": "string",
+    "image": "http://lenger1117.ddns.net/media/recipes/image/fc0e581a-51b7-440e-a478-fbaf0e023477.png",
+    "cooking_time": 1
+}
+```
+
