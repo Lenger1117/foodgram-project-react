@@ -85,7 +85,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 ingredient_list[name]['amount'] += amount
         height = 700
 
-        p.drawString(100, 750, 'Список покупок')
+        p.drawString(100, 750, 'Список покупок:')
         for ingredient, (name, data) in enumerate(ingredient_list.items(),
                                                   start=1):
             p.drawString(
@@ -101,21 +101,18 @@ class ShoppingCartView(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def post(self, request, id):
+        recipe = get_object_or_404(Recipe, id=id)
         data = {
             'user': request.user.id,
-            'recipe': id
+            'recipe': recipe.id
         }
-        recipe = get_object_or_404(Recipe, id=id)
-        if not ShoppingCart.objects.filter(
-           user=request.user, recipe=recipe).exists():
-            serializer = ShoppingCartSerializer(
-                data=data, context={'request': request}
-            )
-            if serializer.is_valid():
-                serializer.save()
-                return Response(
-                    serializer.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        serializer = ShoppingCartSerializer(
+            data=data, context={'request': request}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED)
 
     def delete(self, request, id):
         recipe = get_object_or_404(Recipe, id=id)
