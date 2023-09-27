@@ -85,7 +85,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
         height = 700
 
         p.drawString(100, 750, 'Список покупок')
-        for ingredient, (name, data) in enumerate(ingredient_list.items(), start=1):
+        for ingredient, (name, data) in enumerate(ingredient_list.items(),
+                                                  start=1):
             p.drawString(
                 80, height,
                 f"{ingredient}. {name} – {data['amount']} {data['unit']}")
