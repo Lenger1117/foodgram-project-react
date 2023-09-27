@@ -68,9 +68,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
             "attachment; filename='shopping_cart.pdf'"
         )
         p = canvas.Canvas(response)
-        arial = ttfonts.TTFont('Skranji-Regular', 'data/Skranji-Regular.ttf')
-        pdfmetrics.registerFont(arial)
-        p.setFont('Skranji-Regular', 14)
+        comfortaa_bold = ttfonts.TTFont('Comfortaa-Bold', 'data/Comfortaa-Bold.ttf')
+        pdfmetrics.registerFont(comfortaa_bold)
+        p.setFont('Comfortaa-Bold', 14)
 
         ingredients = IngredientRecipe.objects.filter(
             recipe__shopping_cart__user=request.user).values_list(
