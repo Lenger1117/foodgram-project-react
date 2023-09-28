@@ -12,3 +12,4 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CustomUser, UserAdmin)
+admin.site.unregister(Group)
