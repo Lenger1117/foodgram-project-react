@@ -19,7 +19,7 @@ class Command(BaseCommand):
                     ingredient_data = json.loads(data_file_ingredients.read())
                     for ingredients in ingredient_data:
                         Ingredient.objects.get_or_create(**ingredients)
-            
+
             else:
                 MODELS_FILES = {Ingredient: 'ingredients.csv', }
                 for model, file in MODELS_FILES.items():
@@ -28,7 +28,7 @@ class Command(BaseCommand):
                         reader = csv.DictReader(data_file_ingredients_2)
                         model.objects.bulk_create(
                             model(**data) for data in reader
-                            )
+                        )
 
             with open('data/tags.json', encoding='utf-8',
                       ) as data_file_tags:
