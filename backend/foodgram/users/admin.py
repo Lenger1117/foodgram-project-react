@@ -4,8 +4,7 @@ from .models import CustomUser
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name',
-                    'favorites', 'shopping_cart')
+    list_display = ('username', 'email', 'first_name', 'last_name')
     search_fields = ('username', 'email')
     list_filter = ('first_name', 'last_name')
     ordering = ('username', )
