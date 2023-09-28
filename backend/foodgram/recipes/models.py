@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import UniqueConstraint
 
 from users.models import CustomUser
@@ -86,9 +86,10 @@ class Recipe(models.Model):
     )
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name='Время приготовления',
-        validators=[MinValueValidator(
-            1,
-            message='Время приготовления должно быть не менее 1 минуты!')])
+        validators=[
+            MinValueValidator(1, message='Время приготовления не менее 1 минуты!'),
+            MaxValueValidator(1441, message='Время приготовления не более 24 часов!')
+        ])
     text = models.TextField(
         verbose_name='Описание',
         help_text='Введите пошагавое приготовление блюда'
