@@ -3,7 +3,6 @@ from . import models
 from .models import Recipe, Ingredient, Tag, Favorite, ShoppingCart
 
 
-@admin.register(models.Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('pk', 'name', 'author', 'in_favorites')
     list_editable = (
