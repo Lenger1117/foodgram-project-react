@@ -14,7 +14,7 @@ class UserAdmin(admin.ModelAdmin):
 
     @admin.display(empty_value='unknown')
     def favorites(self, obj):
-         return obj.favorite
+        return obj.favorite
 
 
 admin.site.register(CustomUser, UserAdmin)
