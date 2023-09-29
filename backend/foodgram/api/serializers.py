@@ -121,7 +121,7 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'Время готовки не может быть меньше одной минуты')
         elif cooking_time > 1441:
-            return Response(status=status.HTTP_400_BAD_REQUEST) 
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         return cooking_time
 
     def validate_ingredients(self, data):
