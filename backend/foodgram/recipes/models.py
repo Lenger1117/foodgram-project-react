@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import UniqueConstraint
 
@@ -142,6 +143,10 @@ class Favorite(models.Model):
             name='user_favorite_unique')]
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
+
+    @admin.display
+    def favorite(self, obj):
+        return obj.favorite.recipe
 
     def __str__(self) -> str:
         return f'{self.user} - {self.recipe}'
