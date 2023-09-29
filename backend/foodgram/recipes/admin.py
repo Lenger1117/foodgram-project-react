@@ -1,20 +1,24 @@
 from django.contrib import admin
+
 from .models import Recipe, Ingredient, Tag, Favorite, ShoppingCart
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'author', 'in_favorites')
-    list_editable = (
-        'name', 'cooking_time', 'text', 'tags',
-        'image', 'author'
-    )
-    readonly_fields = ('in_favorites',)
-    list_filter = ('name', 'author', 'tags')
+    list_display = ('author', 'name', 'cooking_time',
+                    'get_favorites', 'get_ingredients',)
+    search_fields = ('name', 'author', 'tags')
+    list_filter = ('author', 'name', 'tags')
     empty_value_display = '-пусто-'
 
-    @admin.display(description='В избранном')
-    def in_favorites(self, obj):
-        return obj.favorite_recipe.count()
+    def get_favorites(self, obj):
+        return obj.favorites.count()
+    get_favorites.short_description = 'Избранное'
+
+    def get_ingredients(self, obj):
+        return ', '.join([
+            ingredients.name for ingredients
+            in obj.ingredients.all()])
+    get_ingredients.short_description = 'Ингридиенты'
 
 
 class IngredientAdmin(admin.ModelAdmin):
