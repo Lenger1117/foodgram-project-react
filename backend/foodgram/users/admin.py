@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-
+try:
+    from rest_framework.authtoken.models import TokenProxy as DRFToken
+except ImportError:
+    from rest_framework.authtoken.models import Token as DRFToken
 from .models import CustomUser
 
 
@@ -14,3 +17,4 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(CustomUser, UserAdmin)
 admin.site.unregister(Group)
+admin.site.unregister(DRFToken)
