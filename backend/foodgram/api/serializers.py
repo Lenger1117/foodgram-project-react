@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import ValidationError
 from rest_framework import status
+from rest_framework.response import Response
 from django.db.transaction import atomic
 from rest_framework.fields import SerializerMethodField
 from drf_extra_fields.fields import Base64ImageField
@@ -119,6 +120,8 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
         if cooking_time < 1:
             raise serializers.ValidationError(
                 'Время готовки не может быть меньше одной минуты')
+        elif cooking_time > 1441:
+            return Response(status=status.HTTP_400_BAD_REQUEST) 
         return cooking_time
 
     def validate_ingredients(self, data):
@@ -126,6 +129,7 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
         ingredients_list = []
         for ingredient in ingredients:
             amount = ingredient['amount']
+            measurement_unit = ingredient['measurement_unit']
             if int(amount) < 1:
                 raise serializers.ValidationError({
                     'amount': 'Нужно добавить ингредиенты'
@@ -134,6 +138,8 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     'ingredient': 'Не должно быть повторяющихся ингредиентов'
                 })
+            if int(measurement_unit) < 10000:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
             ingredients_list.append(ingredient['id'])
         return data
 
