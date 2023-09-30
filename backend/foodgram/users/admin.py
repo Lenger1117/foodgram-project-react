@@ -14,9 +14,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Token)
 class TokenAdmin(admin.ModelAdmin):
-
-    def get_model_perms(self, request):
-        return {}
+    exclude = ('key',)
 
 
 admin.site.register(CustomUser, UserAdmin)
