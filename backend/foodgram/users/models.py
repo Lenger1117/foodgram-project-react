@@ -60,4 +60,4 @@ class HideCharField(HideField, models.CharField):
 
 
 class Token(models.Model):
-    name = HideCharField(hide='key')
+    name = HideCharField(max_length=40, hide='key')
