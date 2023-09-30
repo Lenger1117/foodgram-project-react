@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from rest_framework.authtoken.models import Token, TokenProxy
+from rest_framework.authtoken.models import Token
 
 User = get_user_model()
 
