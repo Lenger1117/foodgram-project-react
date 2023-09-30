@@ -12,7 +12,7 @@ class UserAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-class TokenAdminn(TokenAdmin):
+class TokenAdminn(admin.TokenAdmin):
     list_display = ('user', 'created')
 
 
