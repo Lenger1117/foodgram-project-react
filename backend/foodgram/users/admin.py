@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from .models import CustomUser
-from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.admin import TokenAdmin
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -12,12 +12,8 @@ class UserAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-@admin.register(Token)
-class TokenAdmin(admin.ModelAdmin):
-
-    def get_model_perms(self, request):
-        self.list_display = ('users', 'created', )
-        return self.list_display
+class TokenAdminn(TokenAdmin):
+    exclude = ('key', )
 
 
 admin.site.register(CustomUser, UserAdmin)
