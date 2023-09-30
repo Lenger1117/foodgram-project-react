@@ -13,7 +13,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class TokenAdminn(TokenAdmin):
-    exclude = ('key', )
+    list_display = ('user', 'created')
 
 
 admin.site.register(CustomUser, UserAdmin)
