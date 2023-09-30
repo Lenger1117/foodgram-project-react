@@ -21,7 +21,6 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class TokenChangeList(ChangeList):
-    """Map to matching User id"""
     def url_for_result(self, result):
         pk = result.user.pk
         return reverse('admin:%s_%s_change' % (self.opts.app_label,
@@ -31,7 +30,7 @@ class TokenChangeList(ChangeList):
 
 
 class TokenAdmin(admin.ModelAdmin):
-    list_display = ('key', 'user', 'created')
+    list_display = ('user', 'created')
     fields = ('user',)
     ordering = ('-created',)
     actions = None
