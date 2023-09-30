@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import UniqueConstraint
-from hidefield.fields import HideField
 
 
 class CustomUser(AbstractUser):
@@ -53,11 +52,3 @@ class Follow(models.Model):
 
     def __str__(self) -> str:
         return f'{self.user} подписался на пользователя {self.author}'
-
-
-class HideCharField(HideField, models.CharField):
-    pass
-
-
-class Token(models.Model):
-    name = HideCharField(max_length=40, hide='key')

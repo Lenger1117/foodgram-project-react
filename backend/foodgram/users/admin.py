@@ -12,7 +12,9 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class TokenAdmin(admin.ModelAdmin):
-    exclude = ('key',)
+
+    def get_model_perms(self, request):
+        return {}
 
 
 admin.site.register(CustomUser, UserAdmin)
