@@ -15,7 +15,7 @@ class UserAdmin(admin.ModelAdmin):
 
     @admin.display(description='В избранном')
     def get_favorite_count(self, obj):
-        return Favorite.objects.filter(recipe=obj).count()
+        return Favorite.objects.filter(user=obj).count()
 
 
 admin.site.register(CustomUser, UserAdmin)
