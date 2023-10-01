@@ -91,7 +91,7 @@ class AddIngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = IngredientRecipe
-        fields = ['id', 'amount', 'measurement_unit']
+        fields = ['id', 'amount', ]
 
 
 class CreateRecipeSerializer(serializers.ModelSerializer):
@@ -129,18 +129,17 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
         ingredients_list = []
         for ingredient in ingredients:
             amount = ingredient['amount']
-            measurement_unit = ingredient['measurement_unit']
             if int(amount) < 1:
                 raise serializers.ValidationError({
                     'amount': 'Нужно добавить ингредиенты'
                 })
+            if int(amount) > 100000:
+                raise serializers.ValidationError({
+                    'amount': 'Не может быть ингредиент больше 100 кг'
+                })
             if ingredient['id'] in ingredients_list:
                 raise serializers.ValidationError({
                     'ingredient': 'Не должно быть повторяющихся ингредиентов'
-                })
-            if int(measurement_unit) > 100000:
-                raise serializers.ValidationError({
-                    'measurement_unit': 'Не может быть ингредиент больше 100кг'
                 })
             ingredients_list.append(ingredient['id'])
         return data
