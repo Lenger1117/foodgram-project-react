@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
+from rest_framework.authtoken.models import TokenProxy
 from .models import CustomUser
 
 
@@ -11,10 +12,7 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ('username', )
     empty_value_display = '-пусто-'
 
-    @admin.display(description='В избранном')
-    def get_favorite_count(self, obj):
-        return obj.favorite.count()
-
 
 admin.site.register(CustomUser, UserAdmin)
 admin.site.unregister(Group)
+admin.site.unregister(TokenProxy)

@@ -14,6 +14,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['158.160.15.64', '127.0.0.1', 'localhost', 'lenger1117.ddns.net']
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -24,8 +26,6 @@ INSTALLED_APPS = [
     'recipes.apps.RecipesConfig',
     'api.apps.ApiConfig',
     'users_api.apps.UsersApiConfig',
-    'rest_framework',
-    'rest_framework.authtoken',
     'djoser',
     'django_filters',
     'hidefield',

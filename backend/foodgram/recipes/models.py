@@ -144,10 +144,6 @@ class Favorite(models.Model):
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
 
-    @admin.display
-    def favorite(self, obj):
-        return obj.favorite.recipe
-
     def __str__(self) -> str:
         return f'{self.user} - {self.recipe}'
 
