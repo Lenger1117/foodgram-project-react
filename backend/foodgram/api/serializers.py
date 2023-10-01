@@ -140,7 +140,7 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
                 })
             if int(measurement_unit) > 100000:
                 raise serializers.ValidationError({
-                    'measurement_unit': 'Не может быть ингредиент больше 100 кг'
+                    'measurement_unit': 'Не может быть ингредиент больше 100кг'
                 })
             ingredients_list.append(ingredient['id'])
         return data
