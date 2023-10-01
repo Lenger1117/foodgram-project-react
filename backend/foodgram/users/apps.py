@@ -10,5 +10,5 @@ class UsersConfig(AppConfig):
 class AdminConfig(AppConfig):
     def ready(self):
         from django.contrib import admin
-        from rest_framework.authtoken.models import Token
-        admin.site.unregister(Token)
+        from rest_framework.authtoken.models import TokenProxy
+        admin.site.unregister(TokenProxy)
