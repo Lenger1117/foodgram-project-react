@@ -138,8 +138,8 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     'ingredient': 'Не должно быть повторяющихся ингредиентов'
                 })
-            if int(measurement_unit) < 10000:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+            if int(measurement_unit) > 10000:
+                raise Response(status=status.HTTP_400_BAD_REQUEST)
             ingredients_list.append(ingredient['id'])
         return data
 
