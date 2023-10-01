@@ -188,6 +188,10 @@ class IngredientRecipe(models.Model):
         verbose_name='Количество',
         validators=[MinValueValidator(1)]
     )
+    measurement_unit = models.CharField(
+        max_length=200,
+        verbose_name='Единицы измерения'
+    )
 
     class Meta:
         constraints = [UniqueConstraint
