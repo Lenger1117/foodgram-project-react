@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import UniqueConstraint
+from recipes.models import Favorite, ShoppingCart
+from django.db.models import Count, Sum
 
 
 class CustomUser(AbstractUser):
@@ -28,6 +30,11 @@ class CustomUser(AbstractUser):
         ordering = ['-pk']
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+    
+    def get_queryset(self):
+        queryset = super(FieldView, self).get_queryset()
+        queryset = queryset.annotate(num_apples=Count('tree__apple'), apple_mass=Sum('tree__apple__mass'))
+        return queryset
 
     def __str__(self):
         return self.username
