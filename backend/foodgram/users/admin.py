@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from .models import CustomUser
-from rest_framework.authtoken.admin import TokenAdmin
+from recipes.admin import FavoriteAdmin, ShoppingCartAdmin
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -10,8 +10,11 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ('first_name', 'last_name')
     ordering = ('username', )
     empty_value_display = '-пусто-'
+    inlines = [
+        FavoriteAdmin,
+        ShoppingCartAdmin,
+    ]
 
 
 admin.site.register(CustomUser, UserAdmin)
 admin.site.unregister(Group)
-admin.site.unregister(TokenAdmin)
