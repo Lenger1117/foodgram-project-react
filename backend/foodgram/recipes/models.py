@@ -188,6 +188,8 @@ class IngredientRecipe(models.Model):
         constraints = [UniqueConstraint
                        (fields=['recipe', 'ingredient'],
                         name='recipe_ingredient_unique')]
+        verbose_name = 'Ингредиент входящий в рецепт'
+        verbose_name_plural = 'Ингредиенты входящие в рецепт'
 
 
 class TagRecipe(models.Model):
