@@ -1,15 +1,26 @@
 from django.contrib import admin
 
-from .models import Recipe, Ingredient, Tag, Favorite, ShoppingCart
+from .models import (Recipe,
+                     Ingredient,
+                     Tag,
+                     Favorite,
+                     ShoppingCart,
+                     IngredientRecipe
+                     )
+
+
+class IngredientInline(admin.TabularInline):
+    model = IngredientRecipe
+    extra = 1
 
 
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('author', 'name', 'cooking_time',
-                    'get_favorites', 'get_ingredients',
-                    'ingredients', )
+                    'get_favorites', 'get_ingredients')
     search_fields = ('name', 'author', 'tags')
     list_filter = ('author', 'name', 'tags')
     empty_value_display = '-пусто-'
+    inlines = (IngredientInline, )
 
     def get_favorites(self, obj):
         return obj.favorites.count()
