@@ -5,7 +5,8 @@ from .models import Recipe, Ingredient, Tag, Favorite, ShoppingCart
 
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('author', 'name', 'cooking_time',
-                    'get_favorites', 'get_ingredients',)
+                    'get_favorites', 'get_ingredients',
+                    'ingredients', )
     search_fields = ('name', 'author', 'tags')
     list_filter = ('author', 'name', 'tags')
     empty_value_display = '-пусто-'
