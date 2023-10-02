@@ -5,6 +5,16 @@ from .models import CustomUser
 from recipes.models import Favorite, ShoppingCart
 
 
+class FavoriteInline(admin.TabularInline):
+    model = Favorite
+    extra = 1
+
+
+class ShoppingCarteInline(admin.TabularInline):
+    model = ShoppingCart
+    extra = 1
+
+
 class UserAdmin(admin.ModelAdmin):
     list_display = (
         'username',
@@ -18,6 +28,7 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ('first_name', 'last_name')
     ordering = ('username', )
     empty_value_display = '-пусто-'
+    inlines = (FavoriteInline, ShoppingCarteInline)
 
     @admin.display(description='В избранном')
     def get_favorite_count(self, obj):
